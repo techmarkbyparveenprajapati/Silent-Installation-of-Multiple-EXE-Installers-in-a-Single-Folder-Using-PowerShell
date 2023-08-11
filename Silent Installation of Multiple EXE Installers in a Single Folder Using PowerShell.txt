@@ -1,0 +1,16 @@
+# Define the path to the folder containing the EXE installers
+$installerFolderPath = "C:\Path\To\Installers"
+
+# Get a list of all EXE installers in the folder
+$installers = Get-ChildItem -Path $installerFolderPath -Filter "*.exe"
+
+# Loop through the list of installers and silently install them
+foreach ($installer in $installers) {
+    # Construct the full path to the installer executable
+    $installerPath = Join-Path -Path $installerFolderPath -ChildPath $installer.Name
+
+    # Start the installer process silently
+    Start-Process -Wait -FilePath $installerPath -ArgumentList '/silent'
+}
+
+Write-Host "Silent installation of EXE installers completed."
